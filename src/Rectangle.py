@@ -4,8 +4,8 @@ from src.Figure import Figure
 class Rectangle(Figure):
     name = "Rectangle"
 
-    def __init__(self, side_one, side_two, *args, **kwargs):
-        super(Figure).__init__(*args, **kwargs)
+    def __init__(self, side_one, side_two):
+        super(Figure).__init__()
         self.__side_one = side_one
         self.__side_two = side_two
 

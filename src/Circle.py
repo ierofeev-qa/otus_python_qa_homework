@@ -5,8 +5,8 @@ from src.Figure import Figure
 class Circle(Figure):
     name = "Circle"
 
-    def __init__(self, radius, *args, **kwargs):
-        super(Figure).__init__(*args, **kwargs)
+    def __init__(self, radius):
+        super(Figure).__init__()
         self.__radius = radius
 
     @property

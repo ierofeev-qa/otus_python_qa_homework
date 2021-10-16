@@ -1,7 +1,7 @@
 class Figure:
     area = None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self):
         if isinstance(self, Figure):
             raise TypeError('Instantiation of the class Figure is forbidden')
 

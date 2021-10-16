@@ -4,8 +4,8 @@ from src.Figure import Figure
 class Square(Figure):
     name = "Square"
 
-    def __init__(self, side, *args, **kwargs):
-        super(Figure).__init__(*args, **kwargs)
+    def __init__(self, side):
+        super(Figure).__init__()
         self.__side = side
 
     @property
