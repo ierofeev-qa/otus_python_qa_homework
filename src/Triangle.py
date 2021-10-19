@@ -5,18 +5,22 @@ from src.Figure import Figure
 class Triangle(Figure):
     name = "Triangle"
 
-    def __new__(cls, side_one, side_two, side_three):
-        if side_one + side_two > side_three and side_one + side_three > side_two and side_two + side_three > side_one:
-            instance = super(Triangle, cls).__new__(cls)
-            instance.side_one, instance.side_two, instance.side_three = side_one, side_two, side_three
-            return instance
-        return None
-
     def __init__(self, side_one, side_two, side_three):
         super(Figure).__init__()
         self.__side_one = side_one
         self.__side_two = side_two
         self.__side_three = side_three
+
+    @staticmethod
+    def triangle_is_exist(side_one, side_two, side_three):
+        return side_one + side_two > side_three and side_one + side_three > side_two and side_two + side_three > side_one
+
+    def __new__(cls, side_one, side_two, side_three):
+        if cls.triangle_is_exist(side_one, side_two, side_three):
+            instance = super(Triangle, cls).__new__(cls)
+            instance.side_one, instance.side_two, instance.side_three = side_one, side_two, side_three
+            return instance
+        return None
 
     @property
     def area(self):
