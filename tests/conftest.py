@@ -8,34 +8,34 @@ from src.Circle import Circle
 
 @pytest.fixture
 def default_triangle():
-    triangle = Triangle(4, 4, 4)
+    triangle = Triangle(side_one=4, side_two=4, side_three=4)
     yield triangle
     del triangle
 
 
 @pytest.fixture
 def nonexistent_triangle():
-    triangle = Triangle(5, 20, 100)
+    triangle = Triangle(side_one=5, side_two=20, side_three=100)
     yield triangle
     del triangle
 
 
 @pytest.fixture
 def default_square():
-    square = Square(6)
+    square = Square(side=6)
     yield square
     del square
 
 
 @pytest.fixture
 def default_rectangle():
-    rectangle = Rectangle(3, 4)
+    rectangle = Rectangle(side_one=3, side_two=4)
     yield rectangle
     del rectangle
 
 
 @pytest.fixture
 def default_circle():
-    circle = Circle(7)
+    circle = Circle(radius=7)
     yield circle
     del circle
