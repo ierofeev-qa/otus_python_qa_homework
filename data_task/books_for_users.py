@@ -11,19 +11,18 @@ with open("initial_files/books.csv", "r") as f:
         books.append(row)
 
 
-def slice_list(input_list, size):
-    input_size = len(input_list)
-    slice_size = input_size // len(size)
-    remain = input_size % len(size)
+def distribute_books_to_users(books_list, users_list):
+    minimum_chunk_length = len(books_list) // len(users_list)
+    remain_books_count = len(books_list) % len(users_list)
     result = []
-    iterator = iter(input_list)
-    for i in range(len(size)):
+    iterator = iter(books_list)
+    for i in range(len(users_list)):
         result.append([])
-        for j in range(slice_size):
+        for j in range(minimum_chunk_length):
             result[i].append(iterator.__next__())
-        if remain:
+        if remain_books_count:
             result[i].append(iterator.__next__())
-            remain -= 1
+            remain_books_count -= 1
     return result
 
 
@@ -36,7 +35,7 @@ for user in users:
             'gender': user['gender'],
             'address': user['address'],
             'age': user['age'],
-            'books': slice_list(books, users)[users.index(user)]
+            'books': distribute_books_to_users(books, users)[users.index(user)]
         }
     )
 
