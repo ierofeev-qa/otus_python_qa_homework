@@ -12,6 +12,6 @@ def url(request):
 
 
 @pytest.fixture
-def status_code(request):
+def expected_status_code(request):
     return request.config.getoption("--status_code")
 
