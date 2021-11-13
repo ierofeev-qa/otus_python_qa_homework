@@ -1,6 +1,6 @@
 import pytest
 import json
-
+import os
 
 @pytest.fixture
 def base_url():
@@ -9,6 +9,8 @@ def base_url():
 
 @pytest.fixture
 def breeds_list():
-    with open("breeds.json", "r") as f:
+    script_dir = os.path.dirname(__file__)
+    rel_path = "breeds.json"
+    with open(os.path.join(script_dir, rel_path), "r") as f:
         breeds = json.loads(f.read())
     return breeds
