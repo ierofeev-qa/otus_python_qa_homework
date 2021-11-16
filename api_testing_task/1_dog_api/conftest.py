@@ -2,6 +2,7 @@ import pytest
 import json
 import os
 
+
 @pytest.fixture
 def base_url():
     return 'https://dog.ceo/api'
