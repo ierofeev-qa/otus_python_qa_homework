@@ -5,30 +5,33 @@ from src.Figure import Figure
 class Triangle(Figure):
     name = "Triangle"
 
-    def __init__(self, side_one, side_two, side_three):
-        super(Figure).__init__()
-        self.__side_one = side_one
-        self.__side_two = side_two
-        self.__side_three = side_three
+    def __init__(self, side_a, side_b, side_c):
+        super(Figure, self).__init__()
+        self.__side_a = side_a
+        self.__side_b = side_b
+        self.__side_c = side_c
 
     @staticmethod
-    def triangle_is_exist(side_one, side_two, side_three):
-        return side_one + side_two > side_three and side_one + side_three > side_two and side_two + side_three > side_one
+    def triangle_is_exist(side_a, side_b, side_c):
+        return side_a + side_b > side_c and side_a + side_c > side_b and side_b + side_c > side_a
 
-    def __new__(cls, side_one, side_two, side_three):
-        if cls.triangle_is_exist(side_one, side_two, side_three):
+    def __new__(cls, side_a, side_b, side_c):
+        if cls.triangle_is_exist(side_a, side_b, side_c):
             instance = super(Triangle, cls).__new__(cls)
-            instance.side_one, instance.side_two, instance.side_three = side_one, side_two, side_three
+            instance.side_a, instance.side_b, instance.side_c = side_a, side_b, side_c
             return instance
         return None
 
     @property
     def area(self):
-        semi_per = (self.__side_one + self.__side_two + self.__side_three) / 2
+        semi_per = (self.__side_a + self.__side_b + self.__side_c) / 2
         return math.sqrt(
-            semi_per * (semi_per - self.__side_one) * (semi_per - self.__side_two) * (semi_per - self.__side_three)
+            semi_per *
+            (semi_per - self.__side_a) *
+            (semi_per - self.__side_b) *
+            (semi_per - self.__side_c)
         )
 
     @property
     def perimeter(self):
-        return self.__side_one + self.__side_two + self.__side_three
+        return self.__side_a + self.__side_b + self.__side_c

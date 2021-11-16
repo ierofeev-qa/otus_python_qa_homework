@@ -1,10 +1,10 @@
 import json
 from csv import DictReader
 
-with open("initial_files/users.json", "r") as f:
+with open("initial_files/users.json", "r", encoding='UTF-8') as f:
     users = json.loads(f.read())
 
-with open("initial_files/books.csv", "r") as f:
+with open("initial_files/books.csv", "r", encoding='UTF-8') as f:
     books = []
     reader = DictReader(f)
     for row in reader:
@@ -39,7 +39,7 @@ for user in users:
         }
     )
 
-with open("result.json", "w") as f:
+with open("result.json", "w", encoding='UTF-8') as f:
     s = json.dumps(books_for_users, indent=4)
     f.write(s)
 #

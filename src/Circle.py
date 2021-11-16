@@ -6,7 +6,7 @@ class Circle(Figure):
     name = "Circle"
 
     def __init__(self, radius):
-        super(Figure).__init__()
+        super(Figure, self).__init__()
         self.__radius = radius
 
     @property

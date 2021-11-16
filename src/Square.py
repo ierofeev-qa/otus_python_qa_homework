@@ -5,7 +5,7 @@ class Square(Figure):
     name = "Square"
 
     def __init__(self, side):
-        super(Figure).__init__()
+        super(Figure, self).__init__()
         self.__side = side
 
     @property
