@@ -8,14 +8,14 @@ from src.Circle import Circle
 
 @pytest.fixture
 def default_triangle():
-    triangle = Triangle(side_one=4, side_two=4, side_three=4)
+    triangle = Triangle(side_a=4, side_b=4, side_c=4)
     yield triangle
     del triangle
 
 
 @pytest.fixture
 def nonexistent_triangle():
-    triangle = Triangle(side_one=5, side_two=20, side_three=100)
+    triangle = Triangle(side_a=5, side_b=20, side_c=100)
     yield triangle
     del triangle
 
