@@ -6,7 +6,7 @@ class Triangle(Figure):
     name = "Triangle"
 
     def __init__(self, side_one, side_two, side_three):
-        super(Figure).__init__()
+        super(Figure, self).__init__()
         self.__side_one = side_one
         self.__side_two = side_two
         self.__side_three = side_three
