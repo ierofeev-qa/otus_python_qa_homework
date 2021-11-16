@@ -35,7 +35,7 @@ def test_circle_attributes(default_circle):
     assert all(hasattr(default_circle, attr) for attr in ['name', 'area', 'perimeter'])
 
 
-def test_add_area_calculation(default_triangle, default_square, default_rectangle, default_circle):
+def test_add_area_calculation(default_triangle, default_square):
     """Check if calculation of add_area method is correct"""
     assert math.isclose(default_triangle.area, default_triangle.add_area(default_square) - default_square.area)
 
