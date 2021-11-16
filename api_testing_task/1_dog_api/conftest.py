@@ -11,6 +11,6 @@ def base_url():
 def breeds_list():
     script_dir = os.path.dirname(__file__)
     rel_path = "breeds.json"
-    with open(os.path.join(script_dir, rel_path), "r") as f:
+    with open(os.path.join(script_dir, rel_path), "r", encoding='UTF-8') as f:
         breeds = json.loads(f.read())
     return breeds

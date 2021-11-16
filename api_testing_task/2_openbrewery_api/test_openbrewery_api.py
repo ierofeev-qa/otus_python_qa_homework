@@ -46,7 +46,9 @@ def test_results_by_city(base_url, city_snake_case, city_camel_case):
     ])
 def test_sorting(base_url, filter_value, sorting_type_value, sorting_order):
     """Check sorting in result"""
-    result = requests.get(base_url + f'/breweries?{filter_value}&sort={sorting_type_value}:{sorting_order}').json()
+    result = requests.get(
+        base_url + f'/breweries?{filter_value}&sort={sorting_type_value}:{sorting_order}'
+    ).json()
     actual_result = []
 
     for brewery in result:
