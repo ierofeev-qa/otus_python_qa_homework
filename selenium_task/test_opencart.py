@@ -10,6 +10,7 @@ from selenium_task.conftest import wait_element
     ('/index.php?route=account/register', 'registration_page_locators')
 ], ids=["Main page", "Catalog page", "Product page", "Admin login page", "Registration page"])
 def test_elements_are_present(browser, url, rel_url, locators, request):
+    """Check if elements exist on page"""
     elements = request.getfixturevalue(locators)
 
     browser.get(url + rel_url)
