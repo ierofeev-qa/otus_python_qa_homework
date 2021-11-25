@@ -1,7 +1,12 @@
 import pytest
 from selenium import webdriver
-from selenium_task.Locators import \
-    MainPageLocators, CatalogPageLocators, ProductPageLocators, AdminLoginPageLocators, RegistrationPageLocators
+from selenium_task.Locators import (
+    MainPageLocators,
+    CatalogPageLocators,
+    ProductPageLocators,
+    AdminLoginPageLocators,
+    RegistrationPageLocators
+)
 
 DRIVERS = 'C:\\Users\\ivane\\Selenium Drivers'
 
