@@ -98,4 +98,3 @@ def registration_page_locators():
         RegistrationPageLocators.EMAIL_INPUT,
         RegistrationPageLocators.CONTINUE_BUTTON
     ]
-
