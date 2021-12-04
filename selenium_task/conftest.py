@@ -60,9 +60,7 @@ def wait_element(locator, driver, timeout=5):
         raise AssertionError(f"Element {locator} wasn't found")
 
 
-@pytest.fixture
-def main_page_locators():
-    return [
+MAIN_PAGE_LOCATORS = [
         MainPageLocators.HEADER_ICONS,
         MainPageLocators.SEARCH_ITEM,
         MainPageLocators.NAVBAR,
@@ -71,9 +69,7 @@ def main_page_locators():
     ]
 
 
-@pytest.fixture
-def catalog_page_locators():
-    return [
+CATALOG_PAGE_LOCATORS = [
         CatalogPageLocators.GROUP_LIST,
         CatalogPageLocators.LIMIT_INPUT,
         CatalogPageLocators.SORT_INPUT,
@@ -81,10 +77,7 @@ def catalog_page_locators():
         CatalogPageLocators.GRID_VIEW_BUTTON
     ]
 
-
-@pytest.fixture
-def product_page_locators():
-    return [
+PRODUCT_PAGE_LOCATORS = [
         ProductPageLocators.PRODUCT_IMAGES,
         ProductPageLocators.REVIEW_TAB,
         ProductPageLocators.RATING_BUTTONS,
@@ -93,9 +86,7 @@ def product_page_locators():
     ]
 
 
-@pytest.fixture
-def admin_login_page_locators():
-    return [
+ADMIN_LOGIN_PAGE_LOCATORS = [
         AdminLoginPageLocators.LOGIN_BUTTON,
         AdminLoginPageLocators.HEADER,
         AdminLoginPageLocators.USERNAME_INPUT,
@@ -104,9 +95,7 @@ def admin_login_page_locators():
     ]
 
 
-@pytest.fixture
-def registration_page_locators():
-    return [
+REGISTRATION_PAGE_LOCATORS = [
         RegistrationPageLocators.FIRSTNAME_INPUT,
         RegistrationPageLocators.LASTNAME_INPUT,
         RegistrationPageLocators.PASSWORD_INPUT,

@@ -1,19 +1,24 @@
 import pytest
-from selenium_task.conftest import wait_element
+from selenium_task.conftest import (
+    wait_element,
+    MAIN_PAGE_LOCATORS,
+    CATALOG_PAGE_LOCATORS,
+    PRODUCT_PAGE_LOCATORS,
+    ADMIN_LOGIN_PAGE_LOCATORS,
+    REGISTRATION_PAGE_LOCATORS,
+)
 
 
 @pytest.mark.parametrize("rel_url, locators", [
-    ('', 'main_page_locators'),
-    ('/index.php?route=product/category&path=24', 'catalog_page_locators'),
-    ('/index.php?route=product/product&path=24&product_id=28', 'product_page_locators'),
-    ('/admin', 'admin_login_page_locators'),
-    ('/index.php?route=account/register', 'registration_page_locators')
+    ('', MAIN_PAGE_LOCATORS),
+    ('/index.php?route=product/category&path=24', CATALOG_PAGE_LOCATORS),
+    ('/index.php?route=product/product&path=24&product_id=28', PRODUCT_PAGE_LOCATORS),
+    ('/admin', ADMIN_LOGIN_PAGE_LOCATORS),
+    ('/index.php?route=account/register', REGISTRATION_PAGE_LOCATORS)
 ], ids=["Main page", "Catalog page", "Product page", "Admin login page", "Registration page"])
-def test_elements_are_present(browser, url, rel_url, locators, request):
+def test_elements_are_present(browser, url, rel_url, locators):
     """Check if elements exist on page"""
-    elements = request.getfixturevalue(locators)
-
     browser.get(url + rel_url)
 
-    for element in elements:
+    for element in locators:
         wait_element(element, browser)
