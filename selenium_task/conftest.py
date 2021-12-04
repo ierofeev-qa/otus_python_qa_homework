@@ -68,7 +68,6 @@ MAIN_PAGE_LOCATORS = [
         MainPageLocators.FOOTER
     ]
 
-
 CATALOG_PAGE_LOCATORS = [
         CatalogPageLocators.GROUP_LIST,
         CatalogPageLocators.LIMIT_INPUT,
@@ -85,7 +84,6 @@ PRODUCT_PAGE_LOCATORS = [
         ProductPageLocators.ADD_TO_CART_BUTTON
     ]
 
-
 ADMIN_LOGIN_PAGE_LOCATORS = [
         AdminLoginPageLocators.LOGIN_BUTTON,
         AdminLoginPageLocators.HEADER,
@@ -93,7 +91,6 @@ ADMIN_LOGIN_PAGE_LOCATORS = [
         AdminLoginPageLocators.PASSWORD_INPUT,
         AdminLoginPageLocators.HELP_BLOCK
     ]
-
 
 REGISTRATION_PAGE_LOCATORS = [
         RegistrationPageLocators.FIRSTNAME_INPUT,
