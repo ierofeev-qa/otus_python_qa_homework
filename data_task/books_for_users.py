@@ -42,4 +42,3 @@ for user in users:
 with open("result.json", "w", encoding='UTF-8') as f:
     s = json.dumps(books_for_users, indent=4)
     f.write(s)
-#
