@@ -82,3 +82,19 @@ def test_user_registration(browser, url):
     registration_page.register_new_user()
     registration_page.wait_for_element(RegistrationPage.CONFIRM_CONTINUE_BUTTON).click()
     registration_page.wait_for_element(RegistrationPage.LOGOUT_BUTTON)
+
+
+@pytest.mark.parametrize('locator, currency_symbol', [
+    (MainPage.DROPDOWN_EUR_BUTTON, '€'),
+    (MainPage.DROPDOWN_GBP_BUTTON, '£'),
+    (MainPage.DROPDOWN_USD_BUTTON, '$')
+], ids=['EUR', 'GPB', 'USD'])
+def test_switch_currency(browser, url, locator, currency_symbol):
+    """Check currency switch"""
+    main_page = MainPage(browser)
+    browser.get(url)
+
+    main_page.open_currency_dropdown()
+    main_page.wait_for_element(locator).click()
+
+    assert currency_symbol in main_page.wait_for_element(MainPage.CURRENCY_BUTTON).text
