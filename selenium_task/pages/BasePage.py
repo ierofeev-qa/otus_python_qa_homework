@@ -7,9 +7,8 @@ class BasePage:
     def __init__(self, browser):
         self.browser = browser
 
-
-def element_is_present(locator, driver, timeout=5):
-    try:
-        WebDriverWait(driver, timeout).until(ec.presence_of_element_located(locator))
-    except TimeoutException:
-        raise AssertionError(f"Element {locator} wasn't found")
+    def wait_for_element(self, locator, timeout=5):
+        try:
+            return WebDriverWait(self.browser, timeout).until(ec.visibility_of_element_located(locator))
+        except TimeoutException:
+            raise AssertionError(f"Element {locator} wasn't found")
