@@ -18,7 +18,7 @@ def url(request):
     return request.config.getoption("--url")
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def browser(request):
     _browser = request.config.getoption("--browser")
     maximized = request.config.getoption("--maximized")
