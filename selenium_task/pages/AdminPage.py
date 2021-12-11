@@ -4,7 +4,6 @@ from selenium.webdriver.common.by import By
 
 
 class AdminPage(BasePage):
-    rel_url = '/admin'
 
     HEADER = (By.CSS_SELECTOR, '[class="navbar-header"]')
     USERNAME_INPUT = (By.CSS_SELECTOR, '[id="input-username"]')
@@ -24,6 +23,10 @@ class AdminPage(BasePage):
     FILTER_BUTTON = (By.CSS_SELECTOR, '[id="button-filter"]')
     SELECT_ALL_CHECKBOX = (By.CSS_SELECTOR, '[class="panel-body"] [id="form-product"] thead [type="checkbox"]')
     SUCCESS_ALERT = (By.CSS_SELECTOR, '.alert.alert-success.alert-dismissible')
+
+    def __init__(self, browser):
+        super().__init__(browser)
+        self.rel_url = '/admin'
 
     @staticmethod
     def get_section_locator(primary_section_name) -> Tuple[str, str]:

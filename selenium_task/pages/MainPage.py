@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 
 
 class MainPage(BasePage):
-    rel_url = ''
 
     HEADER_ICONS = (By.CSS_SELECTOR, '[id="top-links"]')
     NAVBAR = (By.CSS_SELECTOR, '[class="navbar"]')
@@ -15,6 +14,10 @@ class MainPage(BasePage):
     DROPDOWN_GBP_BUTTON = (By.CSS_SELECTOR, '[class="dropdown-menu"] [name="GBP"]')
     DROPDOWN_USD_BUTTON = (By.CSS_SELECTOR, '[class="dropdown-menu"] [name="USD"]')
     CARD_TOTAL = (By.CSS_SELECTOR, '[id="cart-total"]')
+
+    def __init__(self, browser):
+        super().__init__(browser)
+        self.rel_url = ''
 
     def is_currency_dropdown_opened(self):
         return self.wait_for_element(self.CURRENCY_BUTTON).get_attribute('class') == 'btn-group open'

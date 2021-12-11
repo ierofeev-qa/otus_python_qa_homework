@@ -3,9 +3,15 @@ from selenium.webdriver.common.by import By
 import random
 import string
 
+test_firstname = 'test_firstname'
+test_lastname = 'test_secondname'
+test_password = 'test_password'
+test_phone = '89996663322'
+random_string = ''.join(random.choice(string.ascii_lowercase) for i in range(4))
+test_mail = 'test-mail' + random_string + '@mail.ru'
+
 
 class RegistrationPage(BasePage):
-    rel_url = '/index.php?route=account/register'
 
     FIRSTNAME_INPUT = (By.CSS_SELECTOR, '[id="input-firstname"]')
     LASTNAME_INPUT = (By.CSS_SELECTOR, '[id="input-lastname"]')
@@ -18,12 +24,9 @@ class RegistrationPage(BasePage):
     CONFIRM_CONTINUE_BUTTON = (By.CSS_SELECTOR, '[class="pull-right"] [class="btn btn-primary"]')
     LOGOUT_BUTTON = (By.XPATH, '//*[@id="column-right"]//*[contains(text(), "Logout")]')
 
-    test_firstname = 'test_firstname'
-    test_lastname = 'test_secondname'
-    test_password = 'test_password'
-    test_phone = '89996663322'
-    random_string = ''.join(random.choice(string.ascii_lowercase) for i in range(4))
-    test_mail = 'test-mail' + random_string + '@mail.ru'
+    def __init__(self, browser):
+        super().__init__(browser)
+        self.rel_url = '/index.php?route=account/register'
 
     def register_new_user(
             self,

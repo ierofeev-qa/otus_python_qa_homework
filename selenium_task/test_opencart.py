@@ -55,7 +55,7 @@ def test_elements_are_present(browser, url, page_class, locators):
 def test_add_item_in_catalogue(browser, url):
     """Check if new product successfully added from admin page"""
     admin_page = AdminPage(browser)
-    browser.get(url + AdminPage.rel_url)
+    browser.get(url + admin_page.rel_url)
 
     admin_page.login()
     admin_page.open_catalog_section('catalog', 'Products')
@@ -67,7 +67,7 @@ def test_add_item_in_catalogue(browser, url):
 def test_delete_item_from_catalog(browser, url):
     """Check product deletion from admin page"""
     admin_page = AdminPage(browser)
-    browser.get(url + AdminPage.rel_url)
+    browser.get(url + admin_page.rel_url)
 
     admin_page.login()
     admin_page.delete_product()
@@ -77,7 +77,7 @@ def test_delete_item_from_catalog(browser, url):
 def test_user_registration(browser, url):
     """Check user registration"""
     registration_page = RegistrationPage(browser)
-    browser.get(url + RegistrationPage.rel_url)
+    browser.get(url + registration_page.rel_url)
 
     registration_page.register_new_user()
     registration_page.wait_for_element(RegistrationPage.CONFIRM_CONTINUE_BUTTON).click()
