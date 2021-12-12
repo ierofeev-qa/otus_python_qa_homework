@@ -8,7 +8,7 @@ test_lastname = 'test_secondname'
 test_password = 'test_password'
 test_phone = '89996663322'
 random_string = ''.join(random.choice(string.ascii_lowercase) for i in range(4))
-test_mail = 'test-mail' + random_string + '@mail.ru'
+test_mail = f'test-mail{random_string}@mail.ru'
 
 
 class RegistrationPage(BasePage):
