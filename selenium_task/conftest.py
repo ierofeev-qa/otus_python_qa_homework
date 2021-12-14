@@ -9,7 +9,7 @@ def pytest_addoption(parser):
         "--browser", action="store", default="chrome", choices=["chrome", "firefox", "opera"],
         help="Set browser to launch"
     )
-    parser.addoption("--maximized", action="store_false", help="Maximize browser window")
+    parser.addoption("--maximized", action="store_true", help="Maximize browser window")
     parser.addoption("--url", action="store", default="http://192.168.0.112:8081")
 
 
