@@ -1,15 +1,5 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from selenium.common.exceptions import TimeoutException
-from selenium_task.Locators import (
-    MainPageLocators,
-    CatalogPageLocators,
-    ProductPageLocators,
-    AdminLoginPageLocators,
-    RegistrationPageLocators
-)
 
 DRIVERS = 'C:\\Users\\ivane\\Selenium Drivers'
 
@@ -20,7 +10,7 @@ def pytest_addoption(parser):
         help="Set browser to launch"
     )
     parser.addoption("--maximized", action="store_true", help="Maximize browser window")
-    parser.addoption("--url", action="store", default="https://demo.opencart.com")
+    parser.addoption("--url", action="store", default="http://192.168.0.112:8081")
 
 
 @pytest.fixture(scope="session")
@@ -28,7 +18,7 @@ def url(request):
     return request.config.getoption("--url")
 
 
-@pytest.fixture
+@pytest.fixture(scope="session")
 def browser(request):
     _browser = request.config.getoption("--browser")
     maximized = request.config.getoption("--maximized")
@@ -51,51 +41,3 @@ def browser(request):
     request.addfinalizer(final)
 
     return driver
-
-
-def wait_element(locator, driver, timeout=5):
-    try:
-        WebDriverWait(driver, timeout).until(ec.presence_of_element_located(locator))
-    except TimeoutException:
-        raise AssertionError(f"Element {locator} wasn't found")
-
-
-MAIN_PAGE_LOCATORS = [
-        MainPageLocators.HEADER_ICONS,
-        MainPageLocators.SEARCH_ITEM,
-        MainPageLocators.NAVBAR,
-        MainPageLocators.CART_BUTTON,
-        MainPageLocators.FOOTER
-    ]
-
-CATALOG_PAGE_LOCATORS = [
-        CatalogPageLocators.GROUP_LIST,
-        CatalogPageLocators.LIMIT_INPUT,
-        CatalogPageLocators.SORT_INPUT,
-        CatalogPageLocators.LIST_VIEW_BUTTON,
-        CatalogPageLocators.GRID_VIEW_BUTTON
-    ]
-
-PRODUCT_PAGE_LOCATORS = [
-        ProductPageLocators.PRODUCT_IMAGES,
-        ProductPageLocators.REVIEW_TAB,
-        ProductPageLocators.RATING_BUTTONS,
-        ProductPageLocators.DESCRIPTION_TAB,
-        ProductPageLocators.ADD_TO_CART_BUTTON
-    ]
-
-ADMIN_LOGIN_PAGE_LOCATORS = [
-        AdminLoginPageLocators.LOGIN_BUTTON,
-        AdminLoginPageLocators.HEADER,
-        AdminLoginPageLocators.USERNAME_INPUT,
-        AdminLoginPageLocators.PASSWORD_INPUT,
-        AdminLoginPageLocators.HELP_BLOCK
-    ]
-
-REGISTRATION_PAGE_LOCATORS = [
-        RegistrationPageLocators.FIRSTNAME_INPUT,
-        RegistrationPageLocators.LASTNAME_INPUT,
-        RegistrationPageLocators.PASSWORD_INPUT,
-        RegistrationPageLocators.EMAIL_INPUT,
-        RegistrationPageLocators.CONTINUE_BUTTON
-    ]
