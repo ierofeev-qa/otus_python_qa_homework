@@ -20,8 +20,10 @@ class MainPage(BasePage):
         self.rel_url = ''
 
     def is_currency_dropdown_opened(self):
+        self.logger.info("Check if currency dropdown is opened")
         return self.wait_for_element(self.CURRENCY_BUTTON).get_attribute('class') == 'btn-group open'
 
     def open_currency_dropdown(self):
+        self.logger.info("Open currency dropdown")
         if not self.is_currency_dropdown_opened():
             self.wait_for_element(self.CURRENCY_BUTTON).click()

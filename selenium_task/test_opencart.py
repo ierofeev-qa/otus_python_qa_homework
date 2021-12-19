@@ -51,6 +51,8 @@ def test_elements_are_present(browser, url, page_class, locators):
     for element in locators:
         page.wait_for_element(element)
 
+    page.clear_logger_handlers()
+
 
 def test_add_item_in_catalogue(browser, url):
     """Check if new product successfully added from admin page"""
@@ -63,6 +65,8 @@ def test_add_item_in_catalogue(browser, url):
 
     admin_page.wait_for_element(AdminPage.SUCCESS_ALERT)
 
+    admin_page.clear_logger_handlers()
+
 
 def test_delete_item_from_catalog(browser, url):
     """Check product deletion from admin page"""
@@ -73,6 +77,8 @@ def test_delete_item_from_catalog(browser, url):
     admin_page.delete_product()
     admin_page.wait_for_element(AdminPage.SUCCESS_ALERT)
 
+    admin_page.clear_logger_handlers()
+
 
 def test_user_registration(browser, url):
     """Check user registration"""
@@ -82,6 +88,8 @@ def test_user_registration(browser, url):
     registration_page.register_new_user()
     registration_page.wait_for_element(RegistrationPage.CONFIRM_CONTINUE_BUTTON).click()
     registration_page.wait_for_element(RegistrationPage.LOGOUT_BUTTON)
+
+    registration_page.clear_logger_handlers()
 
 
 @pytest.mark.parametrize('locator, currency_symbol', [
@@ -98,3 +106,5 @@ def test_switch_currency(browser, url, locator, currency_symbol):
     main_page.wait_for_element(locator).click()
 
     assert currency_symbol in main_page.wait_for_element(MainPage.CURRENCY_BUTTON).text
+
+    main_page.clear_logger_handlers()
