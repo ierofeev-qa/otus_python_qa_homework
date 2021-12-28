@@ -20,7 +20,7 @@ def pytest_addoption(parser):
     parser.addoption("--log_level", action="store", default="INFO")
     parser.addoption("--log_to_file", action="store_true")
     # !!! ADDITIONAL OPTIONS FOR REMOTE RUN !!!
-    parser.addoption("--executor", default="192.168.0.112")
+    # parser.addoption("--executor", default="192.168.0.112")
     # parser.addoption("--platform", default='WIN10')
     # parser.addoption("--vnc", action="store_true")
 
