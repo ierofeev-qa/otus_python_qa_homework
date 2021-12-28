@@ -8,9 +8,6 @@ from selenium import webdriver
 DRIVERS = 'C:\\Users\\ivane\\Selenium Drivers'
 LOGS_DIR = 'C:\\Users\\ivane\\PycharmProjects\\otus_python_qa_homework\\selenium_task\\logs'
 
-if not os.path.exists(LOGS_DIR):
-    os.makedirs(LOGS_DIR)
-
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -20,8 +17,10 @@ def pytest_addoption(parser):
     parser.addoption("--browser_ver", action="store", default="95.0")
     parser.addoption("--maximized", action="store_true", help="Maximize browser window")
     parser.addoption("--url", action="store", default="http://192.168.0.112:8081")
-    parser.addoption("--log_level", action="store", default="DEBUG")
-    # parser.addoption("--executor", default="192.168.0.112")
+    parser.addoption("--log_level", action="store", default="INFO")
+    parser.addoption("--log_to_file", action="store_true")
+    # !!! ADDITIONAL OPTIONS FOR REMOTE RUN !!!
+    parser.addoption("--executor", default="192.168.0.112")
     # parser.addoption("--platform", default='WIN10')
     # parser.addoption("--vnc", action="store_true")
 
@@ -36,15 +35,18 @@ def browser(request):
     _browser = request.config.getoption("--browser")
     maximized = request.config.getoption("--maximized")
     log_level = request.config.getoption("--log_level")
+    log_to_file = request.config.getoption("--log_to_file")
 
     logger = logging.getLogger('BrowserLogger')
     logger.setLevel(level=log_level)
 
     test_name = request.node.name
 
-    handler = logging.FileHandler(f"{LOGS_DIR}\\{test_name}.log")
-    handler.setFormatter(logging.Formatter('%(asctime)s  %(name)s  %(levelname)s  %(message)s'))
-    logger.addHandler(handler)
+    if log_to_file:
+        os.makedirs(LOGS_DIR, exist_ok=True)
+        handler = logging.FileHandler(f"{LOGS_DIR}\\{test_name}.log")
+        handler.setFormatter(logging.Formatter('%(asctime)s  %(name)s  %(levelname)s  %(message)s'))
+        logger.addHandler(handler)
 
     logger.info("--> TEST '{}' STARTED".format(test_name))
 
@@ -62,6 +64,7 @@ def browser(request):
 
     driver.test_name = test_name
     driver.log_level = log_level
+    driver.log_to_file = log_to_file
 
     logger.info("Browser '{}' started".format(_browser))
 
@@ -80,6 +83,8 @@ def remote(request):
     browser = request.config.getoption("--browser")
     executor = request.config.getoption("--executor")
     log_level = request.config.getoption("--log_level")
+    log_to_file = request.config.getoption("--log_to_file")
+    # !!! ADDITIONAL OPTIONS !!!
     # platform = request.config.getoption("--platform")
     # browser_ver = request.config.getoption("--browser_ver")
     # vnc = request.config.getoption("--vnc")
@@ -89,9 +94,11 @@ def remote(request):
 
     test_name = request.node.name
 
-    handler = logging.FileHandler(f"{LOGS_DIR}\\{test_name}.log")
-    handler.setFormatter(logging.Formatter('%(asctime)s  %(name)s  %(levelname)s  %(message)s'))
-    logger.addHandler(handler)
+    if log_to_file:
+        os.makedirs(LOGS_DIR, exist_ok=True)
+        handler = logging.FileHandler(f"{LOGS_DIR}\\{test_name}.log")
+        handler.setFormatter(logging.Formatter('%(asctime)s  %(name)s  %(levelname)s  %(message)s'))
+        logger.addHandler(handler)
 
     logger.info("--> TEST '{}' STARTED".format(test_name))
 
@@ -99,6 +106,7 @@ def remote(request):
         command_executor=f"http://{executor}:4444/wd/hub",
         desired_capabilities={
             "browserName": browser,
+            # !!! ADDITIONAL CAPABILITIES
             # "Name": 'Ivan',
             # "browserVersion": browser_ver,
             # "selenoid:options": {
@@ -111,6 +119,7 @@ def remote(request):
 
     driver.test_name = test_name
     driver.log_level = log_level
+    driver.log_to_file = log_to_file
 
     def final():
         driver.quit()

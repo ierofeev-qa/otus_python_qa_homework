@@ -1,3 +1,5 @@
+import allure
+
 from typing import Tuple
 from .BasePage import BasePage
 from selenium.webdriver.common.by import By
@@ -46,32 +48,38 @@ class AdminPage(BasePage):
             By.XPATH, f'//*[@class="nav nav-tabs"]//*[contains(text(), "{tab_name}")]/parent::li'
         )
 
+    @allure.step("Login with with username '{username}' and password '{password}'")
     def login(self, username='user', password='bitnami'):
         self.logger.info("Login with username '{}' and password '{}'".format(username, password))
         self.wait_for_element(self.USERNAME_INPUT).send_keys(username)
         self.wait_for_element(self.PASSWORD_INPUT).send_keys(password)
         self.wait_for_element(self.LOGIN_BUTTON).click()
 
+    @allure.step("Check if {section_name} section is collapsed")
     def is_section_collapsed(self, section_name):
         self.logger.info("Check if {} section is collapsed".format(section_name))
         return \
             self.wait_for_element(self.get_section_locator(section_name)).get_attribute('class') == 'parent collapsed'
 
+    @allure.step("Open catalog {sub_section_name} section")
     def open_catalog_section(self, primary_section_name: str, sub_section_name: str):
         self.logger.info("Open section '{}'->'{}'".format(primary_section_name, sub_section_name))
         if self.is_section_collapsed(primary_section_name):
             self.wait_for_element(self.get_section_locator(primary_section_name)).click()
         self.wait_for_element(self.get_sub_section_locator(primary_section_name, sub_section_name)).click()
 
+    @allure.step("Check if {tab_name} tab is active")
     def is_add_product_tab_active(self, tab_name):
         self.logger.info("Check if {} tab is active".format(tab_name))
         return self.wait_for_element(self.get_add_product_tab_locator(tab_name)).get_attribute('class') == 'active'
 
+    @allure.step("Switch tab to {tab_name}")
     def switch_add_product_tab(self, tab_name):
         self.logger.info("Switch tab to {}".format(tab_name))
         if not self.is_add_product_tab_active(tab_name):
             self.wait_for_element(self.get_add_product_tab_locator(tab_name)).click()
 
+    @allure.step("Add new product '{product_name}'")
     def add_new_product(
             self, product_name: str = 'Test_product_name', meta_tag: str = 'Test_meta_tag', model: str = 'Test_model'
     ):
@@ -84,6 +92,7 @@ class AdminPage(BasePage):
         self.wait_for_element(self.MODEL_INPUT).send_keys(model)
         self.wait_for_element(self.SAVE_BUTTON).click()
 
+    @allure.step("Search for '{product_name}' product")
     def search_for_a_product(self, product_name: str = 'Test_product_name', model: str = 'Test_model'):
         self.logger.info("Search for '{}' product".format(product_name))
         self.open_catalog_section('catalog', 'Products')
@@ -91,6 +100,7 @@ class AdminPage(BasePage):
         self.wait_for_element(self.FILTER_MODEL_INPUT).send_keys(model)
         self.wait_for_element(self.FILTER_BUTTON).click()
 
+    @allure.step("Delete '{product_name}' product")
     def delete_product(self, product_name: str = 'Test_product_name', model: str = 'Test_model'):
         self.logger.info("Delete '{}' product".format(product_name))
         self.search_for_a_product(product_name, model)
