@@ -10,9 +10,14 @@
 4. Собранная статистика должна быть сохранена в json файл и выведена в терминал в свободном (но понятном!) формате
 
 
-ПРИМЕР КОМАНДЫ ДЛЯ ЗАПУСКА СКРИПТА ИЗ ДИРЕКТОРИЯ С САМИМ СКРИПТОМ:
-.\logs_analysis.py -p access.log 
+ПРИМЕР КОМАНДЫ ДЛЯ ЗАПУСКА СКРИПТА:
+python3 {path_to_repo}\logs_analysis.py -p {path_to_log_file_or_folder}
+
+где path_to_repo - путь к репозиторию, содержащему logs_analysis.py;
+path_to_log_file_or_folder - путь к папке или файлу с расширением .log
+
 
 Результат сохраняется в файле с именем в формате:
-"{source_file_name}[PARSED].json", 
+"{source_file_name}[PARSED].json"
+
 где source_file_name - имя исходного файла

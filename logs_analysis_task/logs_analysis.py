@@ -9,7 +9,7 @@ parser = argparse.ArgumentParser(description='Process log files')
 parser.add_argument('-p', dest='path', action='store', help='Path to logfile or folder')
 args = parser.parse_args()
 
-log_files = []
+log_files_abs_paths = []
 
 
 def parse_logs(path: str):
@@ -31,20 +31,18 @@ def parse_logs(path: str):
 
     with open(path) as f:
         for line in f:
-            request = re.search(r"(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s\S\s\S.*]\s\"(GET|POST|PUT|DELETE|HEAD|CONNECT|OPTIONS|TRACE).*\"\s(.*)", line)
+            request = re.search(r"(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s\S\s\S.*HTTP.*\"\s(.*)", line)
+
             if request is not None:
                 request_no += 1
+                requests_by_ip[request.group(1)] += 1
+                requests_by_time[line] = int(request.group(2))
 
-                method = request.group(2)
-                requests_by_method[method] += 1
-
-                ip = request.group(1)
-                requests_by_ip[ip] += 1
-
-                requests_by_time[line] = int(request.group(3))
+                method = re.search(r"] \"(GET|POST|PUT|DELETE|HEAD|CONNECT|OPTIONS|TRACE)", line)
+                if method is not None:
+                    requests_by_method[method.group(1)] += 1
 
     requests_by_time_sorted = sorted(requests_by_time.items(), key=lambda kv: kv[1], reverse=True)[:3]
-
     for i in requests_by_time_sorted:
         requests_by_time_top.append(i[0])
 
@@ -65,8 +63,8 @@ def parse_logs(path: str):
 def parse_logs_in_folder(folder_path: str):
     for file in os.listdir(folder_path):
         if file.endswith(".log"):
-            log_files.append(file)
-    for file in log_files:
+            log_files_abs_paths.append(os.path.join(folder_path, file))
+    for file in log_files_abs_paths:
         parse_logs(file)
 
 
