@@ -1,10 +1,13 @@
-from .BasePage import BasePage
-from selenium.webdriver.common.by import By
 import random
 import string
+import allure
+
+from .BasePage import BasePage
+from selenium.webdriver.common.by import By
+
 
 test_firstname = 'test_firstname'
-test_lastname = 'test_secondname'
+test_lastname = 'test_lastname'
 test_password = 'test_password'
 test_phone = '89996663322'
 random_string = ''.join(random.choice(string.ascii_lowercase) for i in range(4))
@@ -28,6 +31,7 @@ class RegistrationPage(BasePage):
         super().__init__(browser)
         self.rel_url = '/index.php?route=account/register'
 
+    @allure.step("Registering new user: first_name: '{first_name}'; last_name: '{last_name}'")
     def register_new_user(
             self,
             first_name: str = test_firstname,
@@ -36,6 +40,9 @@ class RegistrationPage(BasePage):
             phone: str = test_phone,
             mail: str = test_mail
     ):
+        self.logger.info(
+            "Registering new user: first_name: '{}'; last_name: '{}'".format(test_firstname, test_lastname)
+        )
         self.wait_for_element(self.FIRSTNAME_INPUT).send_keys(first_name)
         self.wait_for_element(self.LASTNAME_INPUT).send_keys(last_name)
         self.wait_for_element(self.EMAIL_INPUT).send_keys(mail)

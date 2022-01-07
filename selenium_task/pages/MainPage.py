@@ -1,3 +1,5 @@
+import allure
+
 from .BasePage import BasePage
 from selenium.webdriver.common.by import By
 
@@ -19,9 +21,13 @@ class MainPage(BasePage):
         super().__init__(browser)
         self.rel_url = ''
 
+    @allure.step("Check if currency dropdown is opened")
     def is_currency_dropdown_opened(self):
+        self.logger.info("Check if currency dropdown is opened")
         return self.wait_for_element(self.CURRENCY_BUTTON).get_attribute('class') == 'btn-group open'
 
+    @allure.step("Open currency dropdown")
     def open_currency_dropdown(self):
+        self.logger.info("Open currency dropdown")
         if not self.is_currency_dropdown_opened():
             self.wait_for_element(self.CURRENCY_BUTTON).click()

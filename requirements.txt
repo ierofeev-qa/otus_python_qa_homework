@@ -1,4 +1,6 @@
+allure-pytest==2.9.45
 pytest==6.2.5
 selenium==3.141.0
 requests==2.26.0
 jsonschema==4.2.1
+pytest-xdist==2.5.0
