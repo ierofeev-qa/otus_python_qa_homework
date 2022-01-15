@@ -31,10 +31,13 @@ def get_request_status(line: str):
     status_value = 200
     status_name = 'OK'
 
-    if status_pattern:
-        status = HTTPStatus(int(status_pattern.group(1)))
-        status_value = status.value
-        status_name = status.name
+    try:
+        if status_pattern:
+            status = HTTPStatus(int(status_pattern.group(1)))
+            status_value = status.value
+            status_name = status.name
+    except ValueError:
+        pass
     return status_value, status_name
 
 
