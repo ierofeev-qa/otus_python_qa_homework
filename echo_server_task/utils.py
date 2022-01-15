@@ -53,4 +53,3 @@ def get_request_headers(line: str):
         if value:
             request_headers[key] = value.group(1)
     return request_headers
-
