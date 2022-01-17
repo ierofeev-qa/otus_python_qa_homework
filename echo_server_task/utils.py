@@ -17,12 +17,12 @@ def parse_request_line(line: str):
     request_pattern = re.search(r"\'(.*)\s/.*Host:\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,})", line)
     method = ''
     addr = ''
-    port = int
+    port = ''
 
     if request_pattern:
         method = request_pattern.group(1)
         addr = request_pattern.group(2)
-        port = int(request_pattern.group(3))
+        port = request_pattern.group(3)
     return method, addr, port
 
 
