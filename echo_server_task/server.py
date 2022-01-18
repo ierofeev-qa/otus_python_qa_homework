@@ -31,7 +31,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                     f"User-Agent: {request_headers['User-Agent']}<br>",
                     f"Accept: {request_headers['Accept']}<br>",
                     f"Accept-Encoding: {request_headers['Accept-Encoding']}<br>",
-                    f"Accept-Language: {request_headers['Accept-Language']}",
+                    f"Accept-Language: {request_headers['Accept-Language']}<br>",
                 ])
                 status_line = f'HTTP/1.1 {status_value} {status_name}'
                 headers = '\r\n'.join([
