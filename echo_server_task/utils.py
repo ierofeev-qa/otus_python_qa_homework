@@ -13,23 +13,15 @@ def get_open_port():
     return port
 
 
-def parse_request_line(line: str):
-    request_pattern = re.search(r"\'(.*)\s/.*Host:\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}):(\d{1,})", line)
-    method = ''
-    addr = ''
-    port = ''
-
-    if request_pattern:
-        method = request_pattern.group(1)
-        addr = request_pattern.group(2)
-        port = request_pattern.group(3)
-    return method, addr, port
-
-
-def get_request_status(line: str):
+def get_request_info(line: str):
+    method_pattern = re.search(r"\'(.*)\s/", line)
     status_pattern = re.search(r"\s/\?status=(\d{1,3})", line)
+    method = ''
     status_value = 200
     status_name = 'OK'
+
+    if method_pattern:
+        method = method_pattern.group(1)
 
     try:
         if status_pattern:
@@ -38,7 +30,7 @@ def get_request_status(line: str):
             status_name = status.name
     except ValueError:
         pass
-    return status_value, status_name
+    return method, status_value, status_name
 
 
 def get_request_headers(line: str):

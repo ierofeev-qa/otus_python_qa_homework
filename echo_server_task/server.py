@@ -1,6 +1,6 @@
 import socket
 
-from utils import get_open_port, parse_request_line, get_request_status, get_request_headers
+from utils import get_open_port, get_request_info, get_request_headers
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     srv_addr = ('', get_open_port())
@@ -20,19 +20,19 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             print(f'Received {repr(text)}')
             if text:
                 print('Sending data back to the client...')
-                method, addr, port = parse_request_line(repr(text))
-                status_value, status_name = get_request_status(repr(text))
+                method, status_value, status_name = get_request_info(repr(text))
                 request_headers = get_request_headers(repr(text))
                 response_data = '\r\n'.join([
                     f"Request Method: {method}<br>",
-                    f"Request Source: ('{addr}'), {port}<br>",
+                    f"Request Source: {raddr}<br>",
                     f"Request Status: {status_value} {status_name}<br>",
                     f"Connection: {request_headers['Connection']}<br>",
-                    f"Upgrade-Insecure-Requests: {request_headers['Upgrade-Insecure-Requests']}<br>"
-                    f"User-Agent: {request_headers['User-Agent']}<br>"
-                    f"Accept: {request_headers['Accept']}<br>"
-                    f"Accept-Encoding: {request_headers['Accept-Encoding']}<br>"
-                    f"Accept-Language: {request_headers['Accept-Language']}"])
+                    f"Upgrade-Insecure-Requests: {request_headers['Upgrade-Insecure-Requests']}<br>",
+                    f"User-Agent: {request_headers['User-Agent']}<br>",
+                    f"Accept: {request_headers['Accept']}<br>",
+                    f"Accept-Encoding: {request_headers['Accept-Encoding']}<br>",
+                    f"Accept-Language: {request_headers['Accept-Language']}",
+                ])
                 status_line = f'HTTP/1.1 {status_value} {status_name}'
                 headers = '\r\n'.join([
                     status_line,
