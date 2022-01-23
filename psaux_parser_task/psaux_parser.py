@@ -47,14 +47,16 @@ for i in processes_by_user:
 processes_by_cpu = sorted(processes_by_cpu.items(), key=lambda kv: kv[1], reverse=True)
 processes_by_memory = sorted(processes_by_memory.items(), key=lambda kv: kv[1], reverse=True)
 
+system_scan = f"Отчёт о состоянии системы:\n"\
+              f"Пользователи системы: {', '.join(x for x in set(user_list))}\n"\
+              f"Процессов запущено: {process_counter}\n"\
+              f"Пользовательских процессов: {processes_by_user_formatted}\n"\
+              f"Всего памяти используется: {round(total_memory_usage, 2)}%\n"\
+              f"Всего CPU используется: {round(total_cpu_usage, 2)}%\n"\
+              f"Больше всего памяти использует: {processes_by_memory[0][0][:20]}\n"\
+              f"Больше всего CPU использует: {processes_by_cpu[0][0][:20]}\n"
+
 with open(f'{result_filename}.txt', "w", encoding='UTF-8') as f:
-    f.write(
-        f"Отчёт о состоянии системы:\n"
-        f"Пользователи системы: {', '.join(x for x in set(user_list))}\n"
-        f"Процессов запущено: {process_counter}\n"
-        f"Пользовательских процессов: {processes_by_user_formatted}\n"
-        f"Всего памяти используется: {round(total_memory_usage, 2)}%\n"
-        f"Всего CPU используется: {round(total_cpu_usage, 2)}%\n"
-        f"Больше всего памяти использует: {processes_by_memory[0][0][:20]}\n"
-        f"Больше всего CPU использует: {processes_by_cpu[0][0][:20]}"
-    )
+    f.write(system_scan)
+
+print(system_scan)
