@@ -44,8 +44,8 @@ processes_by_user = sorted(processes_by_user.items(), key=lambda kv: kv[1], reve
 for i in processes_by_user:
     processes_by_user_formatted += '\n{}: {}'.format(i[0], i[1])
 
-processes_by_cpu = sorted(processes_by_cpu.items(), key=lambda kv: kv[1], reverse=True)
-processes_by_memory = sorted(processes_by_memory.items(), key=lambda kv: kv[1], reverse=True)
+processes_by_cpu = sorted(processes_by_cpu.items(), key=lambda kv: float(kv[1]), reverse=True)
+processes_by_memory = sorted(processes_by_memory.items(), key=lambda kv: float(kv[1]), reverse=True)
 
 system_scan = f"Отчёт о состоянии системы:\n"\
               f"Пользователи системы: {', '.join(x for x in set(user_list))}\n"\
