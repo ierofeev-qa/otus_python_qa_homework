@@ -14,15 +14,13 @@ def pytest_addoption(parser):
         "--browser", action="store", default="chrome", choices=["chrome", "firefox", "opera"],
         help="Set browser to launch"
     )
-    parser.addoption("--browser_ver", action="store", default="95.0")
+    parser.addoption("--browser_ver", action="store", default="97.0")
     parser.addoption("--maximized", action="store_true", help="Maximize browser window")
-    parser.addoption("--url", action="store", default="http://192.168.0.112:8081")
+    parser.addoption("--url", action="store", default="http://192.168.0.103:8081")
     parser.addoption("--log_level", action="store", default="INFO")
     parser.addoption("--log_to_file", action="store_true")
-    # !!! ADDITIONAL OPTIONS FOR REMOTE RUN !!!
-    # parser.addoption("--executor", default="192.168.0.112")
-    # parser.addoption("--platform", default='WIN10')
-    # parser.addoption("--vnc", action="store_true")
+    parser.addoption("--executor", default="172.18.0.1")
+    parser.addoption("--vnc", action="store_true")
 
 
 @pytest.fixture(scope="session")
@@ -84,10 +82,8 @@ def remote(request):
     executor = request.config.getoption("--executor")
     log_level = request.config.getoption("--log_level")
     log_to_file = request.config.getoption("--log_to_file")
-    # !!! ADDITIONAL OPTIONS !!!
-    # platform = request.config.getoption("--platform")
-    # browser_ver = request.config.getoption("--browser_ver")
-    # vnc = request.config.getoption("--vnc")
+    browser_ver = request.config.getoption("--browser_ver")
+    vnc = request.config.getoption("--vnc")
 
     logger = logging.getLogger('RemoteLogger')
     logger.setLevel(level=log_level)
@@ -106,12 +102,10 @@ def remote(request):
         command_executor=f"http://{executor}:4444/wd/hub",
         desired_capabilities={
             "browserName": browser,
-            # !!! ADDITIONAL CAPABILITIES
-            # "Name": 'Ivan',
-            # "browserVersion": browser_ver,
-            # "selenoid:options": {
-            # "enableVNC": vnc
-            # },
+            "browserVersion": browser_ver,
+            "selenoid:options": {
+                "enableVNC": vnc
+            },
         }
     )
 
