@@ -19,7 +19,7 @@ def pytest_addoption(parser):
     parser.addoption("--url", action="store", default="http://192.168.0.103:8081")
     parser.addoption("--log_level", action="store", default="INFO")
     parser.addoption("--log_to_file", action="store_true")
-    parser.addoption("--executor", default="172.18.0.1")
+    parser.addoption("--executor", default="selenoid")
     parser.addoption("--vnc", action="store_true")
 
 
