@@ -16,7 +16,7 @@ def pytest_addoption(parser):
     )
     parser.addoption("--browser_ver", action="store", default="97.0")
     parser.addoption("--maximized", action="store_true", help="Maximize browser window")
-    parser.addoption("--url", action="store", default="http://192.168.0.103:8081")
+    parser.addoption("--url", action="store", default="http://demo.opencart.com")
     parser.addoption("--log_level", action="store", default="INFO")
     parser.addoption("--log_to_file", action="store_true")
     parser.addoption("--executor", default="selenoid")
