@@ -76,7 +76,7 @@ def browser(request):
     return driver
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def remote(request):
     browser = request.config.getoption("--browser")
     executor = request.config.getoption("--executor")
